@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira — Магазин матрасов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0e1116;
+  --ink2:#3a4150;
+  --muted:#8a909c;
+  --line:#ececf1;
+  --bg:#f6f6f4;
+  --card:#ffffff;
+  --accent:#6c5ce7;
+  --accent-soft:#efeafd;
+  --green:#25D366;
+  --tg:#229ED9;
+  --r:18px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);background:rgba(246,246,244,0.8);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-size:1.5rem;font-weight:800;letter-spacing:-1px}
+.logo b{color:var(--accent)}
+.nav-links{display:flex;gap:2.2rem}
+.nav-links a{color:var(--ink2);font-size:0.92rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{display:flex;align-items:center;gap:1.2rem}
+.nav-phone{font-weight:700;font-size:0.92rem}
+@media(max-width:760px){.nav-links{display:none}}
+
+/* HERO */
+.hero{padding:5.5rem 0 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:680px;height:680px;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 65%);z-index:0}
+.hero-in{position:relative;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--line);padding:.5rem 1rem;border-radius:50px;font-size:.82rem;font-weight:600;color:var(--ink2);margin-bottom:1.8rem;box-shadow:0 4px 18px rgba(0,0,0,.04)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:1.3rem}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--accent),#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.15rem;color:var(--ink2);max-width:540px;margin:0 auto 2.4rem}
+.hero-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.btn{padding:.95rem 2rem;border-radius:14px;font-weight:700;font-size:1rem;cursor:pointer;border:none;transition:all .22s;font-family:inherit}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(14,17,22,.22)}
+.btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+/* TRUST STRIP */
+.trust{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-top:3rem}
+.trust-item{display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--ink2);font-weight:500}
+.trust-item .ic{width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+
+/* SECTION */
+.sec{padding:4.5rem 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px}
+.sec-head p{color:var(--muted);margin-top:.3rem}
+
+/* FILTERS */
+.filters{display:flex;gap:.6rem;flex-wrap:wrap}
+.fbtn{padding:.55rem 1.2rem;border-radius:50px;border:1px solid var(--line);background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--ink2);font-family:inherit}
+.fbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fbtn:hover:not(.active){border-color:var(--ink2)}
+
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.6rem}
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(14,17,22,.1)}
+.card-media{height:230px;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;background:linear-gradient(135deg,#f3f1fb,#e9e6f7)}
+.card:nth-child(3n+2) .card-media{background:linear-gradient(135deg,#eef7f1,#ddf0e6)}
+.card:nth-child(3n) .card-media{background:linear-gradient(135deg,#fdf0ec,#f8e0d6)}
+.tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);color:var(--ink);font-size:.7rem;font-weight:700;padding:5px 11px;border-radius:50px;text-transform:uppercase;letter-spacing:.5px}
+.card-b{padding:1.4rem;display:flex;flex-direction:column;flex:1}
+.card-b h3{font-size:1.18rem;font-weight:700;letter-spacing:-.3px;margin-bottom:.4rem}
+.card-b .d{font-size:.86rem;color:var(--muted);margin-bottom:1.2rem;flex:1}
+.card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:1rem}
+.price{font-size:1.25rem;font-weight:800;letter-spacing:-.5px}
+.price small{display:block;font-size:.7rem;color:var(--muted);font-weight:500;letter-spacing:0}
+.arrow{width:40px;height:40px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:all .25s}
+.card:hover .arrow{background:var(--accent);color:#fff;transform:rotate(-45deg)}
+
+/* PRODUCT PAGE */
+#product-view{min-height:100vh}
+.crumb{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.9rem;font-weight:600;cursor:pointer;margin:2rem 0;transition:color .2s}
+.crumb:hover{color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:3.5rem;align-items:start;padding-bottom:4rem}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr;gap:2rem}}
+.pmedia{position:sticky;top:96px;border-radius:24px;height:480px;display:flex;align-items:center;justify-content:center;font-size:9rem;background:linear-gradient(135deg,#f3f1fb,#e9e6f7)}
+@media(max-width:860px){.pmedia{position:static;height:320px;font-size:6rem}}
+.ptag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:50px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1rem}
+.pinfo h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:.7rem}
+.prate{display:flex;align-items:center;gap:.5rem;margin-bottom:1.4rem;font-size:.9rem;color:var(--muted);font-weight:500}
+.stars{color:#f5a623;letter-spacing:2px}
+.pdesc{font-size:1rem;color:var(--ink2);line-height:1.75;margin-bottom:2rem}
+
+.block-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:.9rem}
+.sizes{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem}
+.sbtn{padding:.7rem 1.1rem;border:1.5px solid var(--line);border-radius:13px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;background:#fff;color:var(--ink2);font-family:inherit;min-width:92px;text-align:center}
+.sbtn.active{border-color:var(--ink);background:var(--ink);color:#fff}
+.sbtn:hover:not(.active){border-color:var(--ink2)}
+.sbtn small{display:block;font-size:.7rem;font-weight:500;opacity:.7;margin-top:2px}
+
+.pricebox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;margin-bottom:1.4rem}
+.pricebox .now{font-size:2.4rem;font-weight:800;letter-spacing:-1.5px}
+.pricebox .old{font-size:1rem;color:var(--muted);text-decoration:line-through;margin-left:.6rem;font-weight:500}
+.pricebox .save{display:inline-block;background:#e8f9ef;color:#15994f;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:50px;margin-left:.6rem}
+.pricebox .note{font-size:.85rem;color:var(--muted);margin-top:.5rem}
+.pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(.92)}100%{transform:scale(1)}}
+
+.buyrow{display:flex;gap:.7rem;margin-bottom:2.5rem}
+@media(max-width:480px){.buyrow{flex-direction:column}}
+.buy{flex:1;display:flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem;border-radius:14px;font-size:1rem;font-weight:700;border:none;cursor:pointer;transition:all .22s;color:#fff;font-family:inherit}
+.buy-wa{background:var(--green)}
+.buy-wa:hover{filter:brightness(.95);transform:translateY(-2px);box-shadow:0 12px 26px rgba(37,211,102,.32)}
+.buy-tg{background:var(--tg)}
+.buy-tg:hover{filter:brightness(.95);transform:translateY(-2px);box-shadow:0 12px 26px rgba(34,158,217,.32)}
+
+.specs{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem}
+.specs h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+.srow{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.srow:last-child{border-bottom:none}
+.srow .k{color:var(--muted);font-weight:500}
+.srow .v{font-weight:700;text-align:right}
+
+.perks{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.4rem}
+.perk{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--ink2);font-weight:600}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.6);padding:3rem 0;margin-top:2rem}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;align-items:center}
+.foot-in .logo{color:#fff}
+.foot-in .logo b{color:#a78bfa}
+footer .ft{font-size:.85rem;line-height:1.8}
+footer strong{color:#fff}
+
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo" onclick="showCatalog()" style="cursor:pointer">Mi<b>ra</b></div>
+    <div class="nav-links">
+      <a onclick="showCatalog()" style="cursor:pointer">Каталог</a>
+      <a href="#">Доставка</a>
+      <a href="#">О нас</a>
+      <a href="#">Контакты</a>
+    </div>
+    <div class="nav-cta">
+      <span class="nav-phone">+7 (999) 123-45-67</span>
+    </div>
+  </div>
+</nav>
+
+<!-- CATALOG -->
+<div id="catalog-view">
+  <header class="hero">
+    <div class="wrap hero-in">
+      <div class="pill"><span class="dot"></span> Более 5000 довольных клиентов</div>
+      <h1>Сон, о котором<br>вы <em>мечтали</em></h1>
+      <p>Ортопедические матрасы премиум-класса с бесплатной доставкой и пробным периодом 100 ночей.</p>
+      <div class="hero-btns">
+        <button class="btn btn-dark" onclick="document.getElementById('catalog').scrollIntoView()">Смотреть каталог</button>
+        <button class="btn btn-ghost">Подобрать матрас</button>
+      </div>
+      <div class="trust">
+        <div class="trust-item"><span class="ic">🚚</span> Бесплатная доставка</div>
+        <div class="trust-item"><span class="ic">🌙</span> 100 ночей теста</div>
+        <div class="trust-item"><span class="ic">🛡️</span> Гарантия до 10 лет</div>
+        <div class="trust-item"><span class="ic">✂️</span> Любой размер</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="sec" id="catalog">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Каталог матрасов</h2>
+          <p>Найдите идеальный матрас для здорового сна</p>
+        </div>
+        <div class="filters">
+          <button class="fbtn active" onclick="filterCards(this,'all')">Все</button>
+          <button class="fbtn" onclick="filterCards(this,'ortho')">Ортопедические</button>
+          <button class="fbtn" onclick="filterCards(this,'spring')">Пружинные</button>
+          <button class="fbtn" onclick="filterCards(this,'foam')">Беспружинные</button>
+          <button class="fbtn" onclick="filterCards(this,'kids')">Детские</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-in">
+      <div>
+        <div class="logo">Mi<b>ra</b></div>
+        <div class="ft" style="margin-top:.6rem">Магазин матрасов для здорового сна</div>
+      </div>
+      <div class="ft">
+        <strong>+7 (999) 123-45-67</strong><br>
+        г. Москва, ул. Примерная, д. 1<br>
+        Ежедневно 10:00 – 21:00
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- PRODUCT -->
+<div id="product-view" class="hidden">
+  <div class="wrap">
+    <div class="crumb" onclick="showCatalog()">← Назад в каталог</div>
+    <div class="pgrid">
+      <div class="pmedia" id="p-img">🛏️</div>
+      <div class="pinfo">
+        <span class="ptag" id="p-tag"></span>
+        <h1 id="p-name"></h1>
+        <div class="prate"><span class="stars">★★★★★</span> <span id="p-rate"></span></div>
+        <p class="pdesc" id="p-desc"></p>
+
+        <div class="block-label">Размер (см)</div>
+        <div class="sizes" id="p-sizes"></div>
+
+        <div class="pricebox">
+          <div>
+            <span class="now" id="p-price">—</span>
+            <span class="old" id="p-old"></span>
+            <span class="save hidden" id="p-save"></span>
+          </div>
+          <div class="note" id="p-note"></div>
+        </div>
+
+        <div class="buyrow">
+          <button class="buy buy-wa" id="buy-wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487 2.357 1.018 2.836.816 3.348.764.512-.052 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </button>
+          <button class="buy buy-tg" id="buy-tg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </button>
+        </div>
+
+        <div class="specs">
+          <h3>Характеристики</h3>
+          <div id="p-specs"></div>
+        </div>
+
+        <div class="perks">
+          <div class="perk">🚚 Доставка 1–2 дня</div>
+          <div class="perk">🌙 100 ночей теста</div>
+          <div class="perk">↩️ Возврат бесплатно</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRODUCTS=[
+  {id:1,cat:'ortho',emoji:'🛏️',tag:'Хит продаж',name:'Ортопедикс Комфорт',
+   short:'Независимые пружины + латекс. Точечная поддержка спины.',
+   desc:'Матрас с системой независимых пружинных блоков и натуральным латексом обеспечивает точечную поддержку каждой зоны тела. Идеальный выбор для тех, кто заботится о здоровье позвоночника и хочет просыпаться без боли в спине.',
+   rate:'4.9 · 287 отзывов',
+   sizes:{'80×200':19900,'90×200':22900,'120×200':28900,'140×200':32900,'160×200':36900,'180×200':42900},
+   old:{'80×200':24900,'90×200':27900,'120×200':34900,'140×200':39900,'160×200':44900,'180×200':52900},
+   specs:[['Тип','Пружинный'],['Наполнитель','Независимые пружины + латекс'],['Высота','22 см'],['Жёсткость','Средняя'],['Макс. нагрузка','130 кг / спальное место'],['Чехол','Съёмный, трикотаж'],['Гарантия','5 лет']]},
+  {id:2,cat:'foam',emoji:'💤',tag:'Беспружинный',name:'МемоФлекс Премиум',
+   short:'Memory foam с эффектом памяти. Без вибраций от партнёра.',
+   desc:'Инновационный беспружинный матрас из пены с эффектом памяти. Принимает форму тела, мягко снимает давление с плеч и бёдер и полностью изолирует движения партнёра — вы не почувствуете, когда он встаёт ночью.',
+   rate:'4.8 · 194 отзыва',
+   sizes:{'80×200':16900,'90×200':19900,'120×200':24900,'140×200':27900,'160×200':31900,'180×200':36900},
+   old:{},
+   specs:[['Тип','Беспружинный'],['Наполнитель','Memory foam + кокос'],['Высота','18 см'],['Жёсткость','Средне-мягкая'],['Макс. нагрузка','120 кг / спальное место'],['Чехол','Съёмный'],['Гарантия','3 года']]},
+  {id:3,cat:'spring',emoji:'🌙',tag:'Выгодно',name:'БонелСтандарт',
+   short:'Классический пружинный блок. Лучшая цена.',
+   desc:'Классический пружинный матрас на блоке Боннель с прослойками из натуральных материалов. Проверенное временем решение с отличным сочетанием цены и качества — подойдёт для дачи, гостевой комнаты или семьи с ограниченным бюджетом.',
+   rate:'4.6 · 412 отзывов',
+   sizes:{'80×200':8900,'90×200':9900,'120×200':12900,'140×200':14900,'160×200':16900,'180×200':19900},
+   old:{},
+   specs:[['Тип','Пружинный (Боннель)'],['Наполнитель','Пружины + войлок + ППУ'],['Высота','16 см'],['Жёсткость','Средняя'],['Макс. нагрузка','100 кг / спальное место'],['Чехол','Несъёмный'],['Гарантия','2 года']]},
+  {id:4,cat:'ortho',emoji:'⭐',tag:'Премиум',name:'НатуральЛатекс Про',
+   short:'100% натуральный латекс. Гипоаллергенный, на 20+ лет.',
+   desc:'Элитный матрас из 100% натурального латекса. Обладает природными антибактериальными свойствами, абсолютно гипоаллергенен и превосходно вентилируется. При правильном уходе служит более 20 лет, сохраняя форму и упругость.',
+   rate:'5.0 · 89 отзывов',
+   sizes:{'80×200':34900,'90×200':38900,'120×200':46900,'140×200':52900,'160×200':59900,'180×200':69900},
+   old:{},
+   specs:[['Тип','Беспружинный'],['Наполнитель','100% натуральный латекс'],['Высота','20 см'],['Жёсткость','Средне-жёсткая'],['Макс. нагрузка','150 кг / спальное место'],['Чехол','Съёмный, на молнии'],['Гарантия','10 лет']]},
+  {id:5,cat:'kids',emoji:'🌈',tag:'Детский',name:'КиндерДрим',
+   short:'Для детей 3–14 лет. Правильная осанка с детства.',
+   desc:'Специально разработанный детский матрас с анатомической поддержкой для правильного формирования позвоночника. Чехол из гипоаллергенной ткани легко снимается и стирается в машинке, а кокосовая основа обеспечивает оптимальную жёсткость для растущего организма.',
+   rate:'4.9 · 156 отзывов',
+   sizes:{'70×140':7900,'80×160':9900,'90×180':11900,'90×200':13900},
+   old:{'70×140':10900},
+   specs:[['Тип','Беспружинный'],['Наполнитель','Кокосовая койра + ППУ'],['Высота','12 см'],['Жёсткость','Жёсткая'],['Макс. нагрузка','70 кг'],['Чехол','Съёмный, стирается'],['Возраст','3–14 лет']]},
+  {id:6,cat:'foam',emoji:'🔵',tag:'Новинка',name:'ГелПро Климат',
+   short:'Гелевые вставки. Не перегревается жаркой ночью.',
+   desc:'Инновационный матрас с гелевыми вставками, которые активно регулируют температуру во время сна. Идеален для тех, кто перегревается летом или мёрзнет зимой — гель отводит лишнее тепло и поддерживает комфортный микроклимат всю ночь.',
+   rate:'4.7 · 63 отзыва',
+   sizes:{'80×200':21900,'90×200':24900,'120×200':29900,'140×200':33900,'160×200':38900,'180×200':44900},
+   old:{},
+   specs:[['Тип','Беспружинный'],['Наполнитель','Гель-пена + термоволокно'],['Высота','19 см'],['Жёсткость','Средняя'],['Макс. нагрузка','120 кг / спальное место'],['Чехол','Съёмный, climate-control'],['Гарантия','3 года']]}
+];
+
+let cat='all',cur=null,size=null;
+const WA='79991234567', TG='mira_shop';
+const f=n=>n.toLocaleString('ru-RU')+' ₽';
+
+function renderCards(){
+  const g=document.getElementById('grid');
+  const list=PRODUCTS.filter(p=>cat==='all'||p.cat===cat);
+  g.innerHTML=list.map(p=>{
+    const min=Math.min(...Object.values(p.sizes));
+    return `<div class="card" onclick="openProduct(${p.id})">
+      <div class="card-media"><span class="tag">${p.tag}</span>${p.emoji}</div>
+      <div class="card-b">
+        <h3>${p.name}</h3>
+        <div class="d">${p.short}</div>
+        <div class="card-foot">
+          <div class="price">от ${f(min)}<small>${Object.keys(p.sizes).length} размеров</small></div>
+          <div class="arrow">→</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCards(b,c){
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');cat=c;renderCards();
+}
+
+function openProduct(id){
+  cur=PRODUCTS.find(p=>p.id===id);
+  document.getElementById('p-img').textContent=cur.emoji;
+  document.getElementById('p-tag').textContent=cur.tag;
+  document.getElementById('p-name').textContent=cur.name;
+  document.getElementById('p-rate').textContent=cur.rate;
+  document.getElementById('p-desc').textContent=cur.desc;
+
+  const keys=Object.keys(cur.sizes);
+  size=keys[0];
+  document.getElementById('p-sizes').innerHTML=keys.map(s=>
+    `<button class="sbtn${s===size?' active':''}" onclick="pickSize(this,'${s}')">${s}<small>${f(cur.sizes[s])}</small></button>`
+  ).join('');
+
+  document.getElementById('p-specs').innerHTML=cur.specs.map(([k,v])=>
+    `<div class="srow"><span class="k">${k}</span><span class="v">${v}</span></div>`
+  ).join('');
+
+  updatePrice();
+  document.getElementById('catalog-view').classList.add('hidden');
+  document.getElementById('product-view').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function pickSize(b,s){
+  document.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');size=s;updatePrice();
+}
+
+function updatePrice(){
+  const price=cur.sizes[size], old=cur.old[size];
+  const el=document.getElementById('p-price');
+  el.textContent=f(price);
+  el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+  const oldEl=document.getElementById('p-old'), saveEl=document.getElementById('p-save');
+  if(old){
+    oldEl.textContent=f(old);
+    saveEl.textContent='−'+Math.round((1-price/old)*100)+'%';
+    saveEl.classList.remove('hidden');
+  }else{oldEl.textContent='';saveEl.classList.add('hidden');}
+  document.getElementById('p-note').textContent='Размер '+size+' см · в наличии';
+  const msg=encodeURIComponent(`Здравствуйте! Хочу заказать матрас «${cur.name}», размер ${size} см — ${f(price)}.`);
+  document.getElementById('buy-wa').onclick=()=>window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
+  document.getElementById('buy-tg').onclick=()=>window.open(`https://t.me/${TG}?text=${msg}`,'_blank');
+}
+
+function showCatalog(){
+  document.getElementById('product-view').classList.add('hidden');
+  document.getElementById('catalog-view').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+renderCards();
+</script>
+</body>
+</html>
